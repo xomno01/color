@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Website</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #1c1c1c;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      perspective: 1000px;
+    }
+
+    .hero {
+      text-align: center;
+      transform-style: preserve-3d;
+      animation: heroAnimation 10s infinite linear;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    @keyframes heroAnimation {
+      0% {
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+      100% {
+        transform: rotateX(360deg) rotateY(360deg);
+      }
+    }
+
+    .sparkles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      border-radius: 50%;
+      animation: sparkleAnimation 2s infinite ease-in-out;
+    }
+
+    @keyframes sparkleAnimation {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(2);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .time {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.2rem;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .keyboard-input {
+      position: fixed;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2rem;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <h1>Welcome to Color World</h1>
+      <p>Explore the vibrant world of color with us!</p>
+    </div>
+  </div>
+
+  <div class="sparkles">
+    <!-- Sparkles will be dynamically created here -->
+  </div>
+
+  <div class="time">
+    <span id="clock">00:00:00</span>
+  </div>
+
+  <div class="keyboard-input">
+    <span>Type anything to see the magic:</span>
+    <input type="text" id="keyboardInput" />
+  </div>
+
+  <script>
+    // Create sparkles
+    const sparklesContainer = document.querySelector('.sparkles');
+    const numSparkles = 100;
+
+    for (let i = 0; i < numSparkles; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = `${Math.random() * 100}vw`;
+      sparkle.style.top = `${Math.random() * 100}vh`;
+      sparklesContainer.appendChild(sparkle);
+    }
+
+    // Display the current time
+    function updateClock() {
+      const clock = document.getElementById('clock');
+      const currentTime = new Date();
+      clock.textContent = currentTime.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+
+    // Keyboard interaction
+    const keyboardInput = document.getElementById('keyboardInput');
+    keyboardInput.addEventListener('input', () => {
+      const text = keyboardInput.value;
+      document.body.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+    });
+  </script>
+</body>
+</html>
